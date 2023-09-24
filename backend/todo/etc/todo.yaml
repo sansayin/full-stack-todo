@@ -1,0 +1,20 @@
+Name: todo
+Host: 0.0.0.0
+Port: 8888
+Psql:
+  DataSource: postgres://postgres:p4ssw0rd@0.0.0.0:5432/dev?sslmode=disable
+
+CacheRedis:
+  - Host: 0.0.0.0:6379
+    Type: node
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4001
+  Path: /metrics
+
+Telemetry:
+  Name: todo-api
+  Endpoint: http://0.0.0.0:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger

@@ -1,0 +1,41 @@
+syntax = "v1"
+
+type ToggleTodoReq {
+	Id        string `json:"id"`
+	Completed bool   `json:"completed"`
+}
+
+type Todo {
+	Id          string `json:"id"`
+	Description string `json:"description"`
+	Completed   bool   `json:"completed"`
+}
+
+type GetTodoReq {
+	Id string `path:"id"`
+}
+
+type RespStatus {
+	Status  int64  `json:"status"`
+	Message string `json:"message"`
+}
+
+@server (
+	timeout: 3s
+)
+service todo {
+	@handler getTodos
+	get /todo  returns ([]Todo)
+
+	@handler getTodo
+	get /todo/:id (GetTodoReq) returns (Todo)
+
+	@handler createTodo
+	post /todo (Todo) returns (Todo)
+
+	@handler toggleTodo
+	put /todo (ToggleTodoReq) returns (Todo)
+
+	@handler deleteTodos
+	delete /todo returns (RespStatus)
+}
